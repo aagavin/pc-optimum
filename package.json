@@ -1,10 +1,14 @@
 {
   "name": "pcscrapper",
   "version": "0.1.1",
-  "description": "Get PDF from \u0016pcoptimum.ca",
+  "description": "Get PDF from pcoptimum.ca",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tsc",
+    "clean": "rm -R -f build",
+    "build": "export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true && npm install --production && npm install typescript && tsc && npm uninstall typescript",
+    "package": "npm run build && zip -r lambda.zip node_modules && zip -ju lambda.zip build/*.js",
+    "deploy": "npm run package"
   },
   "author": "",
   "license": "ISC",
