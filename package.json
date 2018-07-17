@@ -14,9 +14,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^10.5.2",
+    "@types/nodemailer": "^4.6.2",
     "@types/puppeteer": "^1.5.0"
   },
   "dependencies": {
+    "nodemailer": "^4.6.7",
     "puppeteer-lambda": "^1.0.12"
   }
 }
