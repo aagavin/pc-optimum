@@ -9,9 +9,9 @@ console.log('Loading function');
 const URL: string = "https://www.pcoptimum.ca/login";
 const EMAIL_INPUT: string = "#email";
 const PASS_INPUT: string = "#password";
-const SIGNIN_BUTTON: string = ".button--block";
+const SIGNIN_BUTTON: string = "form > button";
 const ELEMENT_WAIT_FOR: string = ".product-offer .offer__image-element--default, .hero-product-offer .offer__image-element--default";
-const PDF_NAME: string = `pc-points-${(new Date).toDateString().replace(/ /g, '-')}.pdf`;
+const PDF_NAME: string = `/tmp/pc-points-${(new Date).toDateString().replace(/ /g, '-')}.pdf`;
 
 // nodemailer constants
 let transporter = nodemailer.createTransport({
@@ -33,49 +33,64 @@ let mailOptions:MailOptions = {
     attachments: [{path: PDF_NAME}]
 }
 
-const h = exports.handler = async (event, context) => {
+exports.handler = async (event, context) => {
     const browser: Browser = await puppeteerLambda.getBrowser({
-        headless: true,
-        args: ['--no-sandbox']
+        headless: true
     });
 
+    console.log('opening new tab');
     const page: Page = await browser.newPage();
     await page.setViewport({ 'width': 1920, 'height': 1080 });
+    console.log('going to url');
+
     await page.goto(URL);
-    await page.click(EMAIL_INPUT);
+    // await page.waitForNavigation({waitUntil: "networkidle0"});
+    console.log('went to url');
+    await page.waitForSelector(EMAIL_INPUT);
 
-    await Promise.all([
-        await page.type(EMAIL_INPUT, process.env.PC_USERNAME)
-    ]);
+    await page.type(EMAIL_INPUT, process.env.PC_USERNAME);
+    await page.type(PASS_INPUT, process.env.PC_PASSWORD);
 
-    await page.click(PASS_INPUT)    
-    await Promise.all([
-        await page.type(PASS_INPUT.toString(), process.env.PC_PASSWORD)
-    ]);
+    return await page.evaluate(() => document.body.innerHTML);
+    // console.log('clicking signin');  
+    // await Promise.all([
+    //     await page.waitForNavigation({waitUntil: "networkidle0"}),
+    //     await page.click(SIGNIN_BUTTON),
+    // ]);
 
-    await Promise.all([
-        await page.click(SIGNIN_BUTTON),
-        await page.waitForNavigation({waitUntil: "networkidle0"})
-    ]);
+    // await page.pdf({path: PDF_NAME, printBackground: true, displayHeaderFooter: false});
+    // let mail = await transporter.sendMail(mailOptions);
+    // console.log('signing in');
+    // await page.click(EMAIL_INPUT);
+    // await Promise.all([
+    //     await page.type(EMAIL_INPUT, process.env.PC_USERNAME)
+    // ]);
 
-    // await page.waitForSelector(ELEMENT_WAIT_FOR);
+    // console.log('setting password');
+    // await page.click(PASS_INPUT)    
+    // await Promise.all([
+    //     await page.type(PASS_INPUT, process.env.PC_PASSWORD)
+    // ]);
 
-    await page.emulateMedia('screen');
-    await page.evaluate(()=>{
-        (document.getElementsByClassName('menu').item(0) as HTMLElement).style.display = 'None';
-        return;
-    })
-    await page.pdf({path: PDF_NAME, printBackground: true, displayHeaderFooter: false});
+    // console.log('clicking signin');
+    // await Promise.all([
+    //     await page.click(SIGNIN_BUTTON),
+    //     await page.waitForNavigation({waitUntil: "networkidle0"})
+    // ]);
+
+    // console.log('getting pdf');
+    // await page.emulateMedia('screen');
+    // await page.evaluate(()=>{
+    //     (document.getElementsByClassName('menu').item(0) as HTMLElement).style.display = 'None';
+    //     return;
+    // });
+    // await page.pdf({path: PDF_NAME, printBackground: true, displayHeaderFooter: false});
     await page.close();
     await browser.close();
 
-    let mail = await transporter.sendMail(mailOptions);
-    console.log('Message sent: %s', mail.messageId);
+    // console.log('sending mail');
+    // let mail = await transporter.sendMail(mailOptions);
+    // console.log('Message sent: %s', mail.messageId);
     
     return PDF_NAME;
 };
-
-
-h({}, null)
-.then(val => console.log(val))
-.catch(err => console.log(err))
