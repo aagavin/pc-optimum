@@ -23,6 +23,9 @@ coverage
 # pdf files
 *.pdf
 
+# zip build files
+*.zip
+
 # build
 build/
 

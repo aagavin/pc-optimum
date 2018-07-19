@@ -35,7 +35,8 @@ let mailOptions:MailOptions = {
 
 exports.handler = async (event, context) => {
     const browser: Browser = await puppeteerLambda.getBrowser({
-        headless: true
+        headless: true,
+        // args: ['--no-sandbox'],
     });
 
     console.log('opening new tab');
@@ -49,48 +50,30 @@ exports.handler = async (event, context) => {
     await page.waitForSelector(EMAIL_INPUT);
 
     await page.type(EMAIL_INPUT, process.env.PC_USERNAME);
+    await page.waitFor(200);
     await page.type(PASS_INPUT, process.env.PC_PASSWORD);
+    await page.waitFor(200);
+    
+    
+    await page.evaluate(()=> (document.querySelector('button[type=submit]') as HTMLElement).click());
 
-    return await page.evaluate(() => document.body.innerHTML);
-    // console.log('clicking signin');  
-    // await Promise.all([
-    //     await page.waitForNavigation({waitUntil: "networkidle0"}),
-    //     await page.click(SIGNIN_BUTTON),
-    // ]);
-
-    // await page.pdf({path: PDF_NAME, printBackground: true, displayHeaderFooter: false});
-    // let mail = await transporter.sendMail(mailOptions);
-    // console.log('signing in');
-    // await page.click(EMAIL_INPUT);
-    // await Promise.all([
-    //     await page.type(EMAIL_INPUT, process.env.PC_USERNAME)
-    // ]);
-
-    // console.log('setting password');
-    // await page.click(PASS_INPUT)    
-    // await Promise.all([
-    //     await page.type(PASS_INPUT, process.env.PC_PASSWORD)
-    // ]);
-
-    // console.log('clicking signin');
-    // await Promise.all([
-    //     await page.click(SIGNIN_BUTTON),
-    //     await page.waitForNavigation({waitUntil: "networkidle0"})
-    // ]);
-
-    // console.log('getting pdf');
-    // await page.emulateMedia('screen');
-    // await page.evaluate(()=>{
-    //     (document.getElementsByClassName('menu').item(0) as HTMLElement).style.display = 'None';
-    //     return;
-    // });
-    // await page.pdf({path: PDF_NAME, printBackground: true, displayHeaderFooter: false});
+    await page.waitFor(3000);
+    
+    console.log('getting pdf');
+    await page.emulateMedia('screen');
+    await page.evaluate(()=>{
+        (document.getElementsByClassName('menu').item(0) as HTMLElement).style.display = 'None';
+        return;
+    });
+    await page.pdf({path: PDF_NAME, printBackground: true, displayHeaderFooter: false});
     await page.close();
     await browser.close();
 
-    // console.log('sending mail');
-    // let mail = await transporter.sendMail(mailOptions);
-    // console.log('Message sent: %s', mail.messageId);
+    console.log('sending mail');
+    let mail = await transporter.sendMail(mailOptions);
+    console.log('Message sent: %s', mail.messageId);
     
     return PDF_NAME;
 };
+
+// h({},{}).then(val => console.log(val)).catch(err => console.log(err));
