@@ -12,36 +12,39 @@ export const getPDFPath = async () => {
 
     const browser: Browser = await puppeteerLambda.getBrowser({
         headless: true,
-        // args: ['--no-sandbox'],
+        args: ['--no-sandbox'],
     });
 
-    console.log('opening new tab');
+    console.info('opening new tab');
     const page: Page = await browser.newPage();
     await page.setViewport({ 'width': 1920, 'height': 1080 });
-    console.log('going to url');
+    console.info('going to url');
 
     await page.goto(URL);
     // await page.waitForNavigation({waitUntil: "networkidle0"});
-    console.log('went to url');
+    console.info('went to url');
     await page.waitForSelector(EMAIL_INPUT);
 
+    console.info('logging in to pc w/%s', process.env.PC_USERNAME);
     await page.type(EMAIL_INPUT, process.env.PC_USERNAME);
     await page.waitFor(200);
     await page.type(PASS_INPUT, process.env.PC_PASSWORD);
     await page.waitFor(200);
 
 
+    console.info('clicking submit button')
     await page.evaluate(() => (document.querySelector('button[type=submit]') as HTMLElement).click());
-
     await page.waitFor(3000);
 
-    console.log('getting pdf');
+    console.info('getting pdf');
     await page.emulateMedia('screen');
     await page.evaluate(() => {
         (document.getElementsByClassName('menu').item(0) as HTMLElement).style.display = 'None';
+        (document.getElementsByClassName('site-footer').item(0) as HTMLElement).style.display = 'None';
         return;
     });
     await page.pdf({ path: PDF_PATH, printBackground: true, displayHeaderFooter: false });
+    console.info('got pdf and closeing pdf');
     await page.close();
     await browser.close();
 
