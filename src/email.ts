@@ -5,7 +5,7 @@ import { MailOptions } from "nodemailer/lib/smtp-pool";
 export const sendEmail = async (pdfPath: string): Promise<string> => {
 
     // nodemailer constants
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
         host: process.env.E_HOST,
         port: 465,
         secure: true,
@@ -16,7 +16,7 @@ export const sendEmail = async (pdfPath: string): Promise<string> => {
     });
 
 
-    let mailOptions: MailOptions = {
+    const mailOptions: MailOptions = {
         from: process.env.E_FROM,
         to: process.env.E_TO,
         subject: process.env.E_Subject,
@@ -26,10 +26,10 @@ export const sendEmail = async (pdfPath: string): Promise<string> => {
 
 
     // send email
-    console.log('sending mail');
+    console.info('sending mail');
     let mail = await transporter.sendMail(mailOptions);
-    console.log('Message sent: %s', mail.messageId);
+    console.info('Message sent: %s to %s', mail.messageId, process.env.E_TO);
 
     return mail.messageId;
-    
+
 }
