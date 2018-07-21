@@ -12,7 +12,7 @@ export const getPDFPath = async () => {
 
     const browser: Browser = await puppeteerLambda.getBrowser({
         headless: true,
-        args: ['--no-sandbox'],
+        // args: ['--no-sandbox'],
     });
 
     console.info('opening new tab');
