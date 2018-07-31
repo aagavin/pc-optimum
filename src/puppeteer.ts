@@ -32,7 +32,14 @@ export const getPDFPath = async () => {
 
 
     console.info('clicking submit button')
-    await page.evaluate(() => (document.querySelector('button[type=submit]') as HTMLElement).click());
+    await page.evaluate(() => {
+        
+        (document.querySelector('button[type=submit]') as HTMLElement).click();
+        return window.onload = ()=>{
+            return;
+        }
+
+    });
     await page.waitFor(3000);
     await page.evaluate(()=>{
         return window.onload = ()=>{
