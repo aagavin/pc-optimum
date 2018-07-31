@@ -1,4 +1,4 @@
-import { Page, Browser, ElementHandle } from "puppeteer";
+import { Page, Browser } from "puppeteer";
 import puppeteerLambda = require('puppeteer-lambda');
 
 
@@ -21,7 +21,6 @@ export const getPDFPath = async () => {
     console.info('going to url');
 
     await page.goto(URL);
-    // await page.waitForNavigation({waitUntil: "networkidle0"});
     console.info('went to url');
     await page.waitForSelector(EMAIL_INPUT);
 
@@ -35,6 +34,11 @@ export const getPDFPath = async () => {
     console.info('clicking submit button')
     await page.evaluate(() => (document.querySelector('button[type=submit]') as HTMLElement).click());
     await page.waitFor(3000);
+    await page.evaluate(()=>{
+        return window.onload = ()=>{
+            return;
+        }
+    });
 
     console.info('getting pdf');
     await page.emulateMedia('screen');
