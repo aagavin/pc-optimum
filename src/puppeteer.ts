@@ -1,8 +1,8 @@
 import { Page, Browser } from "puppeteer";
-import puppeteerLambda = require('puppeteer-lambda');
+import puppeteer = require('puppeteer');
 
 
-export const getPDFPath = async () => {
+export const getPDFPath = async (username, password) => {
     // puppeteer constants
     const URL: string = "https://www.pcoptimum.ca/login";
     const EMAIL_INPUT: string = "#email";
@@ -10,10 +10,7 @@ export const getPDFPath = async () => {
     const PDF_PATH: string = `/tmp/pc-points-${(new Date).toDateString().replace(/ /g, '-')}.pdf`;
 
 
-    const browser: Browser = await puppeteerLambda.getBrowser({
-        headless: true,
-        // args: ['--no-sandbox'],
-    });
+    const browser: Browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
     console.info('opening new tab');
     const page: Page = await browser.newPage();
@@ -22,27 +19,23 @@ export const getPDFPath = async () => {
 
     await page.goto(URL);
     console.info('went to url');
-    await page.waitForSelector(EMAIL_INPUT);
 
-    console.info('logging in to pc w/%s', process.env.PC_USERNAME);
-    await page.type(EMAIL_INPUT, process.env.PC_USERNAME);
+    console.info('logging in to pc w/%s, %s', username, password);
+    await page.type(EMAIL_INPUT, username);
     await page.waitFor(200);
-    await page.type(PASS_INPUT, process.env.PC_PASSWORD);
+    await page.type(PASS_INPUT, password);
     await page.waitFor(200);
 
 
     console.info('clicking submit button')
-    await page.evaluate(() => {
-        
-        (document.querySelector('button[type=submit]') as HTMLElement).click();
-        return window.onload = ()=>{
-            return;
-        }
+    await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle0' }),
+        page.click('#login > button')
+    ]);
 
-    });
-    await page.waitFor(3000);
-    await page.evaluate(()=>{
-        return window.onload = ()=>{
+    // await page.waitFor(3000);
+    await page.evaluate(() => {
+        return window.onload = () => {
             return;
         }
     });
@@ -58,7 +51,6 @@ export const getPDFPath = async () => {
     console.info('got pdf and closeing pdf');
     await page.close();
     await browser.close();
-
 
     return PDF_PATH;
 
