@@ -26,10 +26,12 @@ export const sendEmail = async (pdfPath: string): Promise<string> => {
 
 
     // send email
-    console.info('sending mail');
-    let mail = await transporter.sendMail(mailOptions);
-    console.info('Message sent: %s to %s', mail.messageId, process.env.E_TO);
-
-    return mail.messageId;
+    console.info('sending mail using');
+    try {
+        const mail = await transporter.sendMail(mailOptions);
+        console.info('Message sent: %s to %s', mail.messageId, process.env.E_TO);
+        return mail.messageId;
+    }
+    catch (err) { console.log(err) }
 
 }
