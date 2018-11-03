@@ -3,11 +3,11 @@ import { sendEmail } from "./email";
 
 console.log('Loading function');
 
-exports.pcOptimum = async (req, res) => {
-    const pdf_path: string = await getPDFPath(req.body.username, req.body.password);
+exports.pcOptimum = async (username, password) => {
+    const pdf_path: string = await getPDFPath(username, password);
     // return res.send(await sendEmail(pdf_path));
-    return res.send({
+    return {
         emailId: await sendEmail(pdf_path),
         sentTo: process.env.E_TO
-    })
+    }
 };
