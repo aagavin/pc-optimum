@@ -10,7 +10,7 @@ export const getPDFPath = async (username, password) => {
     const PDF_PATH: string = `/tmp/pc-points-${(new Date).toDateString().replace(/ /g, '-')}.pdf`;
 
 
-    const browser: Browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    const browser: Browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
 
     console.info('opening new tab');
     const page: Page = await browser.newPage();
