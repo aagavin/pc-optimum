@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "nodemailer": "^4.6.7",
-    "puppeteer": "^1.8.0"
+    "puppeteer": "^1.10.0"
   }
 }
