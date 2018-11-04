@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "clean": "rm -R -f build",
-    "build": "export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true && npm install --production && npm install typescript && tsc && npm uninstall typescript",
-    "package": "npm run build && zip -r lambda.zip node_modules && zip -ju lambda.zip build/*.js",
+    "clean": "rm -rf lambda.zip build/ node_modules",
+    "start": "tsc; node ./build/index.js",
+    "build": "npm run clean && export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true && npm install --production && npm install typescript --no-save && tsc && npm uninstall typescript",
+    "package": "npm run build && zip -r lambda.zip node_modules && cd ./build && zip -ru ../lambda.zip . && cd .. && zip -ju lambda.zip ./headless-chromium",
     "deploy": "npm run package"
   },
   "author": "",
