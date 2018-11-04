@@ -1,6 +1,6 @@
 import { Page, Browser } from "puppeteer";
 import puppeteer = require('puppeteer');
-
+import { getLaunchConfig } from "./launchConfig";
 
 export const getPDFPath = async (username, password) => {
     // puppeteer constants
@@ -10,14 +10,22 @@ export const getPDFPath = async (username, password) => {
     const PDF_PATH: string = `/tmp/pc-points-${(new Date).toDateString().replace(/ /g, '-')}.pdf`;
 
 
-    const browser: Browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+    const browser: Browser = await puppeteer.launch(getLaunchConfig());
 
-    console.info('opening new tab');
-    const page: Page = await browser.newPage();
-    await page.setViewport({ 'width': 1920, 'height': 1080 });
+    let page: Page;
+    try {
+        console.info('opening new tab');
+        page = await browser.newPage();
+        await page.setCacheEnabled(false);
+        await page.setViewport({ 'width': 1920, 'height': 1080 });
+    }
+    catch (err) {
+        console.error(err);
+    }
+
     console.info('going to url');
 
-    await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'networkidle0' });
     console.info('went to url');
 
     console.info('logging in to pc w/%s, %s', username, password);
@@ -25,7 +33,7 @@ export const getPDFPath = async (username, password) => {
     await page.waitFor(200);
     await page.type(PASS_INPUT, password);
     await page.waitFor(200);
-
+    await page.focus('#login > button');
 
     console.info('clicking submit button')
     await Promise.all([
@@ -33,7 +41,8 @@ export const getPDFPath = async (username, password) => {
         page.click('#login > button')
     ]);
 
-    // await page.waitFor(3000);
+
+    await page.waitFor(3000);
     await page.evaluate(() => {
         return window.onload = () => {
             return;
