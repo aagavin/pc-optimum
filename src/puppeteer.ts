@@ -7,7 +7,7 @@ export const getPDFPath = async (username, password) => {
     const URL: string = "https://www.pcoptimum.ca/login";
     const EMAIL_INPUT: string = "#email";
     const PASS_INPUT: string = "#password";
-    const PDF_PATH: string = `/tmp/pc-points-${(new Date).toDateString().replace(/ /g, '-')}.pdf`;
+    const PDF_PATH: string = `/tmp/pc-points-${(new Date()).toDateString().replace(/ /g, '-')}.pdf`;
 
 
     const browser: Browser = await puppeteer.launch(getLaunchConfig());
