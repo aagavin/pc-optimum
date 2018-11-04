@@ -24,7 +24,6 @@ export const sendEmail = async (pdfPath: string, username: string): Promise<stri
 
     // send email
     console.info('sending mail using');
-    console.info(JSON.stringify(mailOptions));
     try {
         const mail = await transporter.sendMail(mailOptions);
         console.info('Message sent: %s to %s', mail.messageId, process.env.E_TO);
