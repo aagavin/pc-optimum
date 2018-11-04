@@ -36,6 +36,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# chrome bin
+headless-chromium
+
 # Optional npm cache directory
 .npm
 
