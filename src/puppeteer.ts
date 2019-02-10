@@ -2,7 +2,7 @@ import { Page, Browser } from "puppeteer";
 import puppeteer = require('puppeteer');
 import { getLaunchConfig } from "./launchConfig";
 
-export const getPDFPath = async (username, password) => {
+export const getPDFPath = async (username: string, password: string) => {
     // puppeteer constants
     const URL: string = "https://www.pcoptimum.ca/login";
     const EMAIL_INPUT: string = "#email";
@@ -28,7 +28,7 @@ export const getPDFPath = async (username, password) => {
     await page.goto(URL, { waitUntil: 'networkidle0' });
     console.info('went to url');
 
-    console.info('logging in to pc w/%s, %s', username, password);
+    console.info('logging in to pc w/ %s', username);
     await page.type(EMAIL_INPUT, username);
     await page.waitFor(200);
     await page.type(PASS_INPUT, password);
@@ -51,11 +51,13 @@ export const getPDFPath = async (username, password) => {
 
     console.info('getting pdf');
     await page.emulateMedia('screen');
-    await page.evaluate(() => {
+    await page.evaluate(email => {
         (document.getElementsByClassName('menu').item(0) as HTMLElement).style.display = 'None';
         (document.getElementsByClassName('site-footer').item(0) as HTMLElement).style.display = 'None';
+        (document.getElementsByClassName('promoted-action').item(0) as HTMLElement).style.display = 'None';
+        (document.getElementsByClassName('offers-header-points__value').item(0) as HTMLElement).innerText = email
         return;
-    });
+    }, process.env.E_FROM);
     await page.pdf({ path: PDF_PATH, printBackground: true, displayHeaderFooter: false });
     console.info('got pdf and closeing pdf');
     await page.close();
