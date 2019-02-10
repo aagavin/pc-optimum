@@ -5,3 +5,8 @@
 
 send pdf of the webpage https://www.pcoptimum.ca/offers to an email using your provided smpt provider
 
+# Setup 
+
+* Download chrome bin from [here](https://github.com/adieuadieu/serverless-chrome/releases).
+* place in `src` directory
+* run `npm run package`
