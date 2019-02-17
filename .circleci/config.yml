@@ -16,3 +16,15 @@ jobs:
           key: node-v1-dependency-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+  deploy:
+    docker:
+      - image: circleci/node:11.0.0
+    steps:
+      - run: sudo apt-get update -y
+      - run: sudo apt-get -y -qq install awscli
+workflows:
+  jobs:
+    - build
+    - deploy:
+        requires:
+          - build
