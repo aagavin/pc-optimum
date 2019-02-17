@@ -4,10 +4,16 @@
 # "package": "npm run build && zip -r lambda.zip node_modules && cd ./build && zip -ru ../lambda.zip . && cd .. && zip -ju lambda.zip ./headless-chromium",
 #
 
+
+# 
+# varables
+# 
+chromefile="chromium.zip"
+zipfile="lambda.zip"
+
 # 
 # compile
 # 
-chromefile="chromium.zip"
 npm run clean
 curl -L https://github.com/adieuadieu/serverless-chrome/releases/download/v1.0.0-55/stable-headless-chromium-amazonlinux-2017-03.zip -o $chromefile
 unzip $chromefile
@@ -20,8 +26,8 @@ npx -p typescript tsc
 #
 # package
 # 
-zip -r lambda.zip node_modules
+zip -r zipfile node_modules
 cd ./build
-zip -ru ../lambda.zip .
+zip -ru ../zipfile .
 cd ..
-zip -ju lambda.zip ./headless-chromium
+zip -ju zipfile ./headless-chromium
