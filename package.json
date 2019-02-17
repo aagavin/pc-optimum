@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "clean": "rm -rf lambda.zip build/ node_modules",
+    "clean": "rm -rf *.zip build/ node_modules headless-chromium",
     "start": "tsc; node ./build/index.js",
-    "build": "bash buildCi.sh",
-    "package": "npm run build && zip -r lambda.zip node_modules && cd ./build && zip -ru ../lambda.zip . && cd .. && zip -ju lambda.zip ./headless-chromium",
-    "deploy": "npm run package"
+    "build": "bash buildCi.sh"
   },
   "author": "",
   "license": "SEE LICENSE IN LICENSE",
