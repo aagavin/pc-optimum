@@ -15,7 +15,7 @@ export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export NODE_ENV=production
 npm ci --only=production
 # npm -g install typescript
-npx typescript tsc
+npx -p typescript tsc
 
 #
 # package
