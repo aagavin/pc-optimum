@@ -26,8 +26,8 @@ npx -p typescript tsc
 #
 # package
 # 
-zip -r zipfile node_modules
+zip -r $zipfile node_modules
 cd ./build
-zip -ru ../zipfile .
+zip -ru ../$zipfile .
 cd ..
-zip -ju zipfile ./headless-chromium
+zip -ju $zipfile ./headless-chromium
