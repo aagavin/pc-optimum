@@ -24,8 +24,9 @@ jobs:
       - run: sudo apt-get -y -qq install awscli
 workflows:
   version: 2
-  jobs:
-    - build
-    - deploy:
-        requires:
-          - build
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
