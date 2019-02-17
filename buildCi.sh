@@ -14,9 +14,8 @@ unzip $chromefile
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export NODE_ENV=production
 npm ci --only=production
-npm install typescript --no-save
-tsc
-npm uninstall typescript
+# npm -g install typescript
+npx typescript tsc
 
 #
 # package
