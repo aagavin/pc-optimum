@@ -6,5 +6,4 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
-      - run: npm ci
       - run: npm run deploy
