@@ -1,4 +1,4 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/aagavin/pc-optimum/badge)](https://www.codefactor.io/repository/github/aagavin/pc-optimum)
+[![CodeFactor](https://www.codefactor.io/repository/github/aagavin/pc-optimum/badge)](https://www.codefactor.io/repository/github/aagavin/pc-optimum) [![CircleCI](https://circleci.com/gh/aagavin/pc-optimum/tree/master.svg?style=svg)](https://circleci.com/gh/aagavin/pc-optimum/tree/master)
 
 
 # pc-optimum-pdf mailer
