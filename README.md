@@ -5,8 +5,12 @@
 
 send pdf of the webpage https://www.pcoptimum.ca/offers to an email using your provided smpt provider
 
-# Setup 
+# Setup locally
 
 * Download chrome bin from [here](https://github.com/adieuadieu/serverless-chrome/releases).
-* place in `src` directory
-* run `npm run package`
+* place in root directory
+* run `npm ci`
+
+# Package for aws lambda
+
+* run `npm run build`
