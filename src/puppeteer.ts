@@ -52,10 +52,16 @@ export const getPDFPath = async (username: string, password: string) => {
     console.info('getting pdf');
     await page.emulateMedia('screen');
     await page.evaluate(email => {
-        (document.getElementsByClassName('menu').item(0) as HTMLElement).style.display = 'None';
-        (document.getElementsByClassName('site-footer').item(0) as HTMLElement).style.display = 'None';
-        (document.getElementsByClassName('promoted-action').item(0) as HTMLElement).style.display = 'None';
-        (document.getElementsByClassName('offers-header-points__value').item(0) as HTMLElement).innerText = email
+        const menu: HTMLCollection = document.getElementsByClassName('menu');
+        const siteFooter: HTMLCollection = document.getElementsByClassName('site-footer');
+        const promotedAction: HTMLCollection = document.getElementsByClassName('promoted-action');
+        const offersHeaderPoints: HTMLCollection = document.getElementsByClassName('offers-header-points__value');
+
+
+        menu.length != 0 ? (menu.item(0) as HTMLElement).style.display = 'None' : '';
+        siteFooter.length != 0 ? (siteFooter.item(0) as HTMLElement).style.display = 'None' : '';
+        promotedAction.length != 0 ? (promotedAction.item(0) as HTMLElement).style.display = 'None' : '';
+        offersHeaderPoints.length != 0 ? (offersHeaderPoints.item(0) as HTMLElement).style.display = 'None' : '';
         return;
     }, process.env.E_FROM);
     await page.pdf({ path: PDF_PATH, printBackground: true, displayHeaderFooter: false });
