@@ -51,7 +51,7 @@ export const getPDFPath = async (username: string, password: string) => {
 
     console.info('getting pdf');
     await page.emulateMedia('screen');
-    await page.evaluate(email => {
+    await page.evaluate((email:string) => {
         const menu: HTMLCollection = document.getElementsByClassName('menu');
         const siteFooter: HTMLCollection = document.getElementsByClassName('site-footer');
         const promotedAction: HTMLCollection = document.getElementsByClassName('promoted-action');
@@ -61,7 +61,7 @@ export const getPDFPath = async (username: string, password: string) => {
         menu.length != 0 ? (menu.item(0) as HTMLElement).style.display = 'None' : '';
         siteFooter.length != 0 ? (siteFooter.item(0) as HTMLElement).style.display = 'None' : '';
         promotedAction.length != 0 ? (promotedAction.item(0) as HTMLElement).style.display = 'None' : '';
-        offersHeaderPoints.length != 0 ? (offersHeaderPoints.item(0) as HTMLElement).style.display = 'None' : '';
+        offersHeaderPoints.length != 0 ? (offersHeaderPoints.item(0) as HTMLElement).innerText = email.split('@')[0] : '';
         return;
     }, process.env.E_FROM);
     await page.pdf({ path: PDF_PATH, printBackground: true, displayHeaderFooter: false });
