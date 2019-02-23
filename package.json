@@ -1,11 +1,11 @@
 {
   "name": "pcscrapper",
-  "version": "0.1.1",
+  "version": "0.5.1",
   "description": "Get PDF from pcoptimum.ca",
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "clean": "rm -rf *.zip build/ node_modules headless-chromium",
+    "clean": "rm -rf *.zip build/ node_modules",
     "start": "tsc; node ./build/index.js",
     "build": "bash buildCi.sh"
   },
