@@ -7,15 +7,16 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - node-v1-dependency-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-dependency-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{checksum "headless-chromium"}}
             - node-v1-{{ .Branch }}-
             - node-v1-
       - run: echo "Building zip file"
       - run: npm run build
       - save_cache:
-          key: node-v1-dependency-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: node-v1-dependency-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{checksum "headless-chromium"}}
           paths:
             - ./node_modules
+            - ./headless-chromium
       - store_artifacts:
           path: ./lambda.zip
           destination: lambda.zip
