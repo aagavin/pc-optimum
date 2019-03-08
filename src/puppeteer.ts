@@ -35,7 +35,7 @@ export const getPDFPath = async (username: string, password: string) => {
     await page.waitFor(200);
     await page.focus('#login > button');
 
-    console.info('clicking submit button')
+    console.info('clicking submit button');
     await Promise.all([
         page.waitForNavigation({ waitUntil: 'networkidle0' }),
         page.click('#login > button')
@@ -43,11 +43,7 @@ export const getPDFPath = async (username: string, password: string) => {
 
 
     await page.waitFor(3000);
-    await page.evaluate(() => {
-        return window.onload = () => {
-            return;
-        }
-    });
+    await page.evaluate(() => window.onload = () => true);
 
     console.info('getting pdf');
     await page.emulateMedia('screen');
@@ -56,7 +52,6 @@ export const getPDFPath = async (username: string, password: string) => {
         const siteFooter: HTMLCollection = document.getElementsByClassName('site-footer');
         const promotedAction: HTMLCollection = document.getElementsByClassName('promoted-action');
         const offersHeaderPoints: HTMLCollection = document.getElementsByClassName('offers-header-points__value');
-
 
         menu.length != 0 ? (menu.item(0) as HTMLElement).style.display = 'None' : '';
         siteFooter.length != 0 ? (siteFooter.item(0) as HTMLElement).style.display = 'None' : '';
