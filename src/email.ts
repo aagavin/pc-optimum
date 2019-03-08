@@ -15,7 +15,7 @@ export const sendEmail = async (pdfPath: string, username: string): Promise<stri
 
     const mailOptions: MailOptions = {
         from: process.env.E_FROM,
-        to: process.env.E_TO,
+        bcc:process.env.E_TO, 
         subject: 'PC Optimum points',
         text: `PC Optimum points for ${username}`,
         attachments: [{ path: pdfPath }]
