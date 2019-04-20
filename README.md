@@ -7,8 +7,6 @@ send pdf of the webpage https://www.pcoptimum.ca/offers to an email using your p
 
 # Setup locally
 
-* Download chrome bin from [here](https://github.com/adieuadieu/serverless-chrome/releases).
-* place in root directory
 * run `npm ci`
 
 # Package for aws lambda
