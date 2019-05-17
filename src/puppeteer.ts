@@ -43,7 +43,7 @@ export const getPDFPath = async (username: string, password: string) => {
 
 
     await page.waitFor(3000);
-    await page.evaluate(() => window.onload = () => true);
+    // await page.evaluate(() => window.onload = () => true);
 
     console.info('getting pdf');
     await page.emulateMedia('screen');
@@ -53,8 +53,16 @@ export const getPDFPath = async (username: string, password: string) => {
         const promotedAction: HTMLCollection = document.getElementsByClassName('promoted-action');
         const offersHeaderPoints: HTMLCollection = document.getElementsByClassName('offers-header-points__value');
 
+        // const doScrolling = (elementY, duration) => { 
+        const doScroll = (footer: HTMLElement) => {
+          footer.setAttribute('tabindex', '0');
+          footer.focus();
+          footer.style.display = 'None'
+        }
+
+        // remove uneeded items
         menu.length != 0 ? (menu.item(0) as HTMLElement).style.display = 'None' : '';
-        siteFooter.length != 0 ? (siteFooter.item(0) as HTMLElement).style.display = 'None' : '';
+        siteFooter.length != 0 ? doScroll(siteFooter.item(0) as HTMLElement) : '';
         promotedAction.length != 0 ? (promotedAction.item(0) as HTMLElement).style.display = 'None' : '';
         offersHeaderPoints.length != 0 ? (offersHeaderPoints.item(0) as HTMLElement).innerText = username.split('@')[0] : '';
         return;
