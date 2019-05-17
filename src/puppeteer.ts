@@ -41,32 +41,45 @@ export const getPDFPath = async (username: string, password: string) => {
         page.click('#login > button')
     ]);
 
-
     await page.waitFor(3000);
-    // await page.evaluate(() => window.onload = () => true);
 
     console.info('getting pdf');
     await page.emulateMedia('screen');
-    await page.evaluate((username:string) => {
+    await page.addStyleTag({
+        content: `
+      *,
+      *::after,
+      *::before {
+          transition: none !important
+          transition-delay: 0s !important;
+          transition-duration: 0s !important;
+          animation-delay: -0.0001s !important;
+          animation-duration: 0s !important;
+          animation-play-state: paused !important;
+          caret-color: transparent !important;
+      }
+    `
+    });
+    await page.evaluate((username: string) => {
         const menu: HTMLCollection = document.getElementsByClassName('menu');
         const siteFooter: HTMLCollection = document.getElementsByClassName('site-footer');
         const promotedAction: HTMLCollection = document.getElementsByClassName('promoted-action');
         const offersHeaderPoints: HTMLCollection = document.getElementsByClassName('offers-header-points__value');
 
-        // const doScrolling = (elementY, duration) => { 
-        const doScroll = (footer: HTMLElement) => {
-          footer.setAttribute('tabindex', '0');
-          footer.focus();
-          footer.style.display = 'None'
-        }
+        document.querySelectorAll('li.invisible-offer').forEach((li: HTMLElement, index) => {
+          li.setAttribute('tabindex', index+'');
+          li.focus();
+          li.click();
+        });
 
         // remove uneeded items
         menu.length != 0 ? (menu.item(0) as HTMLElement).style.display = 'None' : '';
-        siteFooter.length != 0 ? doScroll(siteFooter.item(0) as HTMLElement) : '';
+        siteFooter.length != 0 ? (siteFooter.item(0) as HTMLElement).style.display = 'None' : '';
         promotedAction.length != 0 ? (promotedAction.item(0) as HTMLElement).style.display = 'None' : '';
         offersHeaderPoints.length != 0 ? (offersHeaderPoints.item(0) as HTMLElement).innerText = username.split('@')[0] : '';
         return;
     }, username);
+    console.log('getting pdf');
     await page.pdf({ path: PDF_PATH, printBackground: true, displayHeaderFooter: false });
     console.info('got pdf and closeing pdf');
     await page.close();
