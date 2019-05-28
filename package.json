@@ -17,11 +17,11 @@
   },
   "devDependencies": {
     "@types/node": "^12.0.2",
-    "@types/nodemailer": "^4.6.2",
+    "@types/nodemailer": "^6.1.1",
     "@types/puppeteer": "^1.12.4"
   },
   "dependencies": {
-    "nodemailer": "^4.6.7",
+    "nodemailer": "^6.2.1",
     "puppeteer": "^1.10.0"
   }
 }
