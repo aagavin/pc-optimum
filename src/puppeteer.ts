@@ -7,7 +7,7 @@ export const getPDFPath = async (username: string, password: string) => {
     const URL: string = "https://www.pcoptimum.ca/login";
     const EMAIL_INPUT: string = "#email";
     const PASS_INPUT: string = "#password";
-    const PDF_PATH: string = `/tmp/pc-points-${(new Date()).toDateString().replace(/ /g, '-')}.pdf`;
+    const PDF_PATH: string = `/tmp/pc-points-${username}-${(new Date()).toDateString().replace(/ /g, '-')}.pdf`;
 
 
     const browser: Browser = await puppeteer.launch(getLaunchConfig());
@@ -66,11 +66,13 @@ export const getPDFPath = async (username: string, password: string) => {
         const promotedAction: HTMLCollection = document.getElementsByClassName('promoted-action');
         const offersHeaderPoints: HTMLCollection = document.getElementsByClassName('offers-header-points__value');
 
-        document.querySelectorAll('li.invisible-offer').forEach((li: HTMLElement, index) => {
-          li.setAttribute('tabindex', index+'');
-          li.focus();
-          li.click();
-        });
+        const elements = document.querySelectorAll('li.invisible-offer');
+        for (let i = 0; i < elements.length; i++) {
+            const li = elements[i] as HTMLElement;
+            li.setAttribute('tabindex', i+'');
+            li.focus();
+            li.click(); 
+        }
 
         // remove uneeded items
         menu.length != 0 ? (menu.item(0) as HTMLElement).style.display = 'None' : '';
