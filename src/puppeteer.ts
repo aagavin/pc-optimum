@@ -30,8 +30,11 @@ export const getPDFPath = async (username: string, password: string) => {
 
     console.info('logging in to pc w/ %s', username);
     await page.type(EMAIL_INPUT, username);
+    console.info('typed username');
     await page.waitFor(200);
+    console.info('typeing password');
     await page.type(PASS_INPUT, password);
+    console.info('typed password');
     await page.waitFor(200);
     await page.focus('#login > button');
 
