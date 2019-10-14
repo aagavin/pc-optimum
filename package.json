@@ -18,7 +18,8 @@
   "devDependencies": {
     "@types/node": "^12.7.12",
     "@types/nodemailer": "^6.2.1",
-    "@types/puppeteer": "^1.20.2"
+    "@types/puppeteer": "^1.20.2",
+    "typescript": "^3.6.4"
   },
   "dependencies": {
     "nodemailer": "^6.3.1",
