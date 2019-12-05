@@ -19,7 +19,7 @@
     "@types/node": "^12.12.14",
     "@types/nodemailer": "^6.2.2",
     "@types/puppeteer": "^2.0.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.3"
   },
   "dependencies": {
     "nodemailer": "^6.3.1",
