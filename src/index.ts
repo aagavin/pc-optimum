@@ -10,3 +10,6 @@ exports.pcOptimum = async (event: { username: string; password: string; }) => {
         sentTo: process.env.E_TO
     }
 };
+
+
+this.pcOptimum({username: 'pcplus@aagavin.ca', password: '*B`*];F\'W"N:k4oZwZ&7Hq6HP:W-]7q+:'}).then(console.log).catch(console.error);

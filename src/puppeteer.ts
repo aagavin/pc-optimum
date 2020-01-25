@@ -2,6 +2,8 @@ import { Page, Browser } from "puppeteer";
 import puppeteer = require('puppeteer');
 import { getLaunchConfig } from "./launchConfig";
 
+const getRandom = () =>  Math.floor((Math.random() * 200) + 50);
+
 export const getPDFPath = async (username: string, password: string) => {
     // puppeteer constants
     const URL: string = "https://www.pcoptimum.ca/login";
@@ -29,13 +31,15 @@ export const getPDFPath = async (username: string, password: string) => {
     console.info('went to url');
 
     console.info('logging in to pc w/ %s', username);
-    await page.type(EMAIL_INPUT, username);
+    await page.focus(EMAIL_INPUT);
+    await page.keyboard.type(username, {delay: getRandom()});
     console.info('typed username');
-    await page.waitFor(200);
+
     console.info('typeing password');
-    await page.type(PASS_INPUT, password);
+    await page.focus(PASS_INPUT);
+    await page.keyboard.type(password, {delay: getRandom()});
     console.info('typed password');
-    await page.waitFor(200);
+
     await page.focus('#login > button');
 
     console.info('clicking submit button');
@@ -47,22 +51,9 @@ export const getPDFPath = async (username: string, password: string) => {
     await page.waitFor(3000);
 
     console.info('getting pdf');
-    await page.emulateMedia('screen');
-    await page.addStyleTag({
-        content: `
-      *,
-      *::after,
-      *::before {
-          transition: none !important
-          transition-delay: 0s !important;
-          transition-duration: 0s !important;
-          animation-delay: -0.0001s !important;
-          animation-duration: 0s !important;
-          animation-play-state: paused !important;
-          caret-color: transparent !important;
-      }
-    `
-    });
+
+    await page.emulateMediaType('screen');
+
     await page.evaluate((username: string) => {
         const menu: HTMLCollection = document.getElementsByClassName('menu');
         const siteFooter: HTMLCollection = document.getElementsByClassName('site-footer');
