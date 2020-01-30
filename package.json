@@ -16,7 +16,7 @@
     "url": "https://github.com/aagavin/pc-optimum.git"
   },
   "devDependencies": {
-    "@types/node": "^13.5.0",
+    "@types/node": "^13.5.2",
     "@types/nodemailer": "^6.4.0",
     "@types/puppeteer": "^2.0.0",
     "typescript": "^3.7.5"
