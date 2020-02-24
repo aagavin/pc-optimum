@@ -22,7 +22,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.3",
     "puppeteer": "^2.0.0"
   }
 }
