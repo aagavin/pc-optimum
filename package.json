@@ -1,28 +1,32 @@
 {
-  "name": "pcscrapper",
-  "version": "0.5.1",
-  "description": "Get PDF from pcoptimum.ca",
-  "main": "index.js",
+  "name": "pc-optimum",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
   "scripts": {
-    "compile": "tsc",
-    "clean": "rm -rf *.zip build/ node_modules",
-    "start": "tsc; node ./build/index.js",
-    "build": "bash buildCi.sh"
+    "start": "./node_modules/ts-node/dist/bin.js src/index.ts",
+    "clean": "rm -rf build",
+    "build": "tsc",
+    "start-prod": "node ./build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "SEE LICENSE IN LICENSE",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aagavin/pc-optimum.git"
-  },
-  "devDependencies": {
-    "@types/node": "^13.5.0",
-    "@types/nodemailer": "^6.4.0",
-    "@types/puppeteer": "^2.0.0",
-    "typescript": "^3.7.5"
+  "license": "ISC",
+  "prettier": {
+    "singleQuote": true
   },
   "dependencies": {
-    "nodemailer": "^6.4.2",
-    "puppeteer": "^2.0.0"
+    "nodemailer": "^6.4.3",
+    "puppeteer": "^2.1.1",
+    "puppeteer-extra": "^3.1.9",
+    "puppeteer-extra-plugin-stealth": "^2.4.9"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.7",
+    "@types/nodemailer": "^6.4.0",
+    "@types/puppeteer": "^2.0.1",
+    "prettier": "1.19.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
   }
 }
