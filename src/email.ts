@@ -29,8 +29,7 @@ export const sendEmail = async (pdfPath: string): Promise<string> => {
     return mail.messageId;
   } catch (err) {
     console.error(err);
-  }
-  finally {
     return '';
   }
+
 };
