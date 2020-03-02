@@ -1,17 +1,17 @@
-import { getPDFPath } from "./puppeteer";
+import { getPdfPath } from "./puppiteer";
 import { sendEmail } from "./email";
 
-console.log('Loading function');
+console.log("starting app....");
 
-exports.handler = async (event) => {
-  const pdf_path: string = await getPDFPath(process.env.PC_USERNAME, process.env.PC_PASSWORD);
+
+(async () => {
+  const path = await getPdfPath() || '';
   return {
     statusCode: 200,
     body: {
-      emailId: await sendEmail(pdf_path, process.env.PC_USERNAME),
+      emailId: await sendEmail(path),
       sentTo: process.env.E_TO
     }
   }
-};
 
-this.handler();
+})()
