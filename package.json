@@ -6,7 +6,8 @@
   "scripts": {
     "start": "./node_modules/ts-node/dist/bin.js src/index.ts",
     "clean": "rm -rf build",
-    "build": "tsc",
+    "compile": "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true; npm i --only=production",
+    "build": "npm run compile; npm i typescript; tsc; npm uninstall typescript;",
     "start-prod": "node ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
