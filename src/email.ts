@@ -1,6 +1,6 @@
 import nodemailer = require('nodemailer');
 import { MailOptions } from 'nodemailer/lib/smtp-pool';
-import { unlinkSync } from "fs";
+import { unlinkSync } from 'fs';
 
 export const sendEmail = async (pdfPath: string): Promise<string> => {
   const transporter = nodemailer.createTransport({
@@ -31,5 +31,4 @@ export const sendEmail = async (pdfPath: string): Promise<string> => {
     console.error(err);
     return '';
   }
-
 };
