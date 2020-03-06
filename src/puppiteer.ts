@@ -13,23 +13,21 @@ const password = process.env.password || '';
 const PDF_PATH: string = `./pc-points-${username}-${(new Date()).toDateString().replace(/ /g, '-')}.pdf`;
 const launchConfig: LaunchOptions = {
   headless: true,
-  executablePath: existsSync('/usr/bin/chromium-browser')
+    executablePath: existsSync('/usr/bin/chromium-browser')
     ? '/usr/bin/chromium-browser'
     : '/usr/bin/chromium',
-  ignoreHTTPSErrors: true,
+		ignoreHTTPSErrors: true,
   defaultViewport: { width: 1920, height: 1080 }
 };
 
 export const getPdfPath = async (): Promise<string | null> => {
   console.info('launching browser');
 
+	try{
   const browser: Browser = await puppeteer.launch(launchConfig);
-
-  console.info('launching page');
   const page: Page = await browser.newPage();
-  // await page.evaluateOnNewDocument(preloadFile);
 
-  try {
+  
     console.info(`going to ${URL}`);
     await page.goto(URL, { waitUntil: 'networkidle0' });
 
@@ -76,9 +74,9 @@ export const getPdfPath = async (): Promise<string | null> => {
     await browser.close();
     return PDF_PATH;
   } catch (err) {
-    await page.screenshot({ path: './screen-err.png', fullPage: true });
+	// await page.screenshot({ path: './screen-err.png', fullPage: true });
     console.error(err);
-    await browser.close();
+	// await browser.close();
     return './screen-err.png';
   }
 };

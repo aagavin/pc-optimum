@@ -1,0 +1,20 @@
+# note this is ment for ARMv6 devices
+# base image will need to be updated for other systems
+FROM arm32v6/node:12-alpine
+
+WORKDIR /usr/src/app
+
+ARG PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true 
+
+COPY package*.json ./
+COPY . /usr/src/app
+RUN cd /usr/src/app
+RUN npm run build
+
+RUN apk add chromium
+
+# USER node
+COPY --chown=node:node . .
+
+CMD [ "npm", "start" ]
+
