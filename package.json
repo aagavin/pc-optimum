@@ -27,6 +27,6 @@
     "@types/nodemailer": "^6.4.0",
     "@types/puppeteer": "^2.0.1",
     "prettier": "1.19.1",
-    "ts-node": "^8.6.2"
+    "ts-node": "^8.7.0"
   }
 }
