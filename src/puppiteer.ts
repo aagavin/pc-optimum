@@ -44,7 +44,7 @@ export const getPdfPath = async (): Promise<string | null> => {
 
     console.log('navigate to login page');
     await Promise.all([
-      page.click('#login > button', { delay: 20 }),
+      page.click('#login > fieldset > button', { delay: 20 }),
       page.waitForNavigation()
     ]);
     console.log('...done navigation');
@@ -78,6 +78,7 @@ export const getPdfPath = async (): Promise<string | null> => {
     // await page.screenshot({ path: './screen-err.png', fullPage: true });
     console.error(err);
     // await browser.close();
-    return './screen-err.png';
+    // return './screen-err.png';
+    return '';
   }
 };
