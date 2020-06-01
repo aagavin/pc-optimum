@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "start-local": "./node_modules/ts-node/dist/bin.js src/index.ts",
-    "clean": "rm -rf build",
+    "clean": "rm -rf buildl; rm -rf node_modules",
     "compile": "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm i --only=production",
     "build": "npm run compile; npm i typescript; tsc; npm uninstall typescript;",
     "start": "node ./build/index.js",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "nodemailer": "^6.4.8",
-    "puppeteer": "^3.2.0",
+    "puppeteer": "^3.1.0",
     "puppeteer-extra": "^3.1.9",
     "puppeteer-extra-plugin-stealth": "^2.4.9"
   },
