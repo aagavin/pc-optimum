@@ -6,9 +6,9 @@
   "scripts": {
     "start-local": "./node_modules/ts-node/dist/bin.js src/index.ts",
     "clean": "rm -rf buildl; rm -rf node_modules",
-    "compile": "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm i --only=production",
+    "compile": "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --only=production",
     "build": "npm run compile; npm i typescript; tsc; npm uninstall typescript;",
-    "start": "node ./build/index.js",
+    "start": "node --harmony ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

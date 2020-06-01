@@ -8,11 +8,7 @@ puppeteer.use(StealthPlugin());
 const URL: string = 'https://www.pcoptimum.ca/login';
 const EMAIL_INPUT: string = '#email';
 const PASS_INPUT: string = '#password';
-const username = process.env.username || '';
-const password = process.env.password || '';
-const PDF_PATH: string = `./pc-points-${username}-${new Date()
-  .toDateString()
-  .replace(/ /g, '-')}.pdf`;
+
 const launchConfig: LaunchOptions = {
   headless: true,
   executablePath: existsSync('/usr/bin/chromium-browser')
@@ -22,8 +18,12 @@ const launchConfig: LaunchOptions = {
   defaultViewport: { width: 1920, height: 1080 }
 };
 
-export const getPdfPath = async (): Promise<string | null> => {
+export const getPdfPath = async (username: string, password: string): Promise<string | null> => {
   console.info('launching browser');
+
+  const PDF_PATH: string = `./pc-points-${username}-${new Date()
+    .toDateString()
+    .replace(/ /g, '-')}.pdf`;
 
   try {
     const browser: Browser = await puppeteer.launch(launchConfig);

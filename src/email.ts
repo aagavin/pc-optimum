@@ -3,6 +3,7 @@ import { MailOptions } from 'nodemailer/lib/smtp-pool';
 import { unlinkSync } from 'fs';
 
 export const sendEmail = async (pdfPath: string): Promise<string> => {
+  if(pdfPath === '') return 'error in pdf';
   const transporter = nodemailer.createTransport({
     service: 'FastMail', // no need to set host or port etc.
     auth: {
