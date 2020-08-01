@@ -49,20 +49,19 @@ export const getPdfPath = async (username: string, password: string): Promise<st
     ]);
     console.log('...done navigation');
 
-    await page.waitForSelector('.offer-content__loaded', { visible: true });
-    await page.evaluate(_ => {
-      window.scrollTo(0, document.body.scrollHeight);
-      (document.querySelector('nav.menu') as HTMLElement).style.display =
-        'none';
-      (document.querySelector(
-        'footer.site-footer'
-      ) as HTMLElement).style.display = 'none';
-      (document.querySelector(
-        'div.offers-header-points__value'
-      ) as HTMLElement).innerText = 'pcplus@aagavin.ca';
-    });
-
     await page.waitFor(1000);
+    await page.waitForSelector('.header-points__points-balance');
+    await page.waitForSelector('.offers-grid--main');
+    await page.waitForSelector('.product-offer');
+    await page.waitForSelector('div.image');
+    await page.evaluate(username => {
+      (document.querySelector('nav.menu') as HTMLElement).style.display = 'None';
+      (document.querySelector('.video-tile') as HTMLElement).style.display = 'None';
+      (document.querySelector('section.tile-list') as HTMLElement).style.display = 'None';
+      (document.querySelector('footer.site-footer') as HTMLElement).style.display = 'None';
+      // header-points__redeemable-value
+      (document.querySelector('div.header-points__redeemable-value') as HTMLElement).innerHTML = `<b><i>Points for ${username}</i></b>`;
+    }, username);
 
     await page.emulateMediaType('screen');
 
