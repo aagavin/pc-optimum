@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "nodemailer": "^6.4.11",
-    "puppeteer": "^3.1.0",
+    "puppeteer": "^5.2.1",
     "puppeteer-extra": "^3.1.12",
     "puppeteer-extra-plugin-stealth": "^2.4.13"
   },
