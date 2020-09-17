@@ -45,11 +45,10 @@ export const getPdfPath = async (username: string, password: string): Promise<st
     console.log('navigate to login page');
     await Promise.all([
       page.click('#login > fieldset > button', { delay: 20 }),
-      page.waitForNavigation()
+      page.waitForNavigation({ waitUntil: 'networkidle0' })
     ]);
     console.log('...done navigation');
 
-    await page.waitFor(1000);
     await page.waitForSelector('.header-points__points-balance');
     await page.waitForSelector('.offers-grid--main');
     await page.waitForSelector('.product-offer');
@@ -71,13 +70,12 @@ export const getPdfPath = async (username: string, password: string): Promise<st
       displayHeaderFooter: false
     });
 
+    console.log('closeing browser');
     await browser.close();
+    console.log('closed broweser');
     return PDF_PATH;
   } catch (err) {
-    // await page.screenshot({ path: './screen-err.png', fullPage: true });
     console.error(err);
-    // await browser.close();
-    // return './screen-err.png';
     return '';
   }
 };
