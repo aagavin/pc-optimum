@@ -3,12 +3,27 @@
 
 # pc-optimum-pdf mailer
 
-send pdf of the webpage https://www.pcoptimum.ca/offers to an email using your provided smpt provider
+Send pdf of the webpage https://www.pcoptimum.ca/offers to an email using your provided smpt provider
 
-# Setup locally
+# Setup Locally
 
 * run `npm ci`
+* Setup the following envernment varables
 
-# Package for aws lambda
+    - `E_USERNAME` email server username
+    - `E_PASSWORD` email server password _(Should be application specific)_
+    - `E_FROM`     email to use as the FROM feild in the email
+    - `E_TO`       email your sending the email to
 
-* run `npm run build`
+* Run using
+`npm run start-local <pcoptimum.ca username> <pcoptimum.ca password>`
+
+> eg. `npm run start-local email@example.ca hunter2`
+
+# Package
+
+* Setup the envernment varables up as outlined in the **Setup locally** section
+* Build using `npm run build`
+* run using `npm run start <pcoptimum.ca username> <pcoptimum.ca password>`
+
+> eg. `npm run start email@example.ca hunter2`
