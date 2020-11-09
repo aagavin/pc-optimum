@@ -30,7 +30,7 @@ export const sendEmail = async (pdfPath: string | Error): Promise<string> => {
     <h3>ERROR --> PC Optimum points for ${process.env.username}</h3><br />
     <pre>${JSON.stringify(pdfPath, null, 2)}</pre><br />
     <p>message: ${pdfPath.message}</p><br />
-    `
+    `;
   }
 
   // send email
