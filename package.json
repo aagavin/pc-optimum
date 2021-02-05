@@ -20,7 +20,7 @@
     "nodemailer": "^6.4.17",
     "puppeteer": "^5.5.0",
     "puppeteer-extra": "^3.1.16",
-    "puppeteer-extra-plugin-stealth": "^2.6.7"
+    "puppeteer-extra-plugin-stealth": "^2.7.4"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
