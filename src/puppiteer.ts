@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import { Browser, Page, LaunchOptions } from 'puppeteer';
+import { Browser, Page } from 'puppeteer';
 import { existsSync } from 'fs';
 
 puppeteer.use(StealthPlugin());
@@ -9,7 +9,7 @@ const URL: string = 'https://www.pcoptimum.ca/login';
 const EMAIL_INPUT: string = '#email';
 const PASS_INPUT: string = '#password';
 
-const launchConfig: LaunchOptions = {
+const launchConfig = {
   headless: true,
   executablePath: existsSync('/usr/bin/chromium-browser')
     ? '/usr/bin/chromium-browser'
@@ -50,7 +50,6 @@ export const getPdfPath = async (username: string, password: string): Promise<st
   await page.waitForSelector('.header-points__points-balance');
   await page.waitForSelector('.offers-grid--main');
   await page.waitForSelector('.product-offer');
-  await page.waitForSelector('div.image');
   await page.evaluate(username => {
     (document.querySelector('nav.menu') as HTMLElement).style.display = 'None';
     (document.querySelector('.video-tile') as HTMLElement).style.display = 'None';
