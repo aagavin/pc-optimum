@@ -23,7 +23,7 @@
     "puppeteer-extra-plugin-stealth": "^2.7.5"
   },
   "devDependencies": {
-    "@types/node": "^14.14.31",
+    "@types/node": "^14.14.33",
     "@types/nodemailer": "^6.4.0",
     "@types/puppeteer": "^5.4.3",
     "prettier": "2.2.1",
