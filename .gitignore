@@ -59,3 +59,5 @@ headless-chromium
 
 # dotenv environment variables file
 .env
+
+.idea
