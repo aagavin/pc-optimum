@@ -5,10 +5,18 @@ console.log('starting app....');
 
 (async () => {
   const account = process.argv.slice(2);
-  const path = await getPdfPath(account[0], account[1]).catch(err => {
-    console.error(err);
-    return err;
-  });
+  let maxRetries = 3;
+  let path: string | Error = '';
+
+  do{
+    try {
+      path = await getPdfPath(account[0], account[1]);
+      break;
+    } catch (err: any) {
+      path = err;
+      maxRetries--;
+    }
+  } while(maxRetries !==0);
 
   return {
     body: {

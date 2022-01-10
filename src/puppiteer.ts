@@ -17,7 +17,7 @@ const launchConfig = {
   defaultViewport: { width: 1920, height: 1080 }
 };
 
-export const getPdfPath = async (username: string, password: string): Promise<string | null> => {
+export const getPdfPath = async (username: string, password: string): Promise<string> => {
   console.info('launching browser');
 
   const PDF_PATH: string = `./pc-points-${username}-${new Date()
