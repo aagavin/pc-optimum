@@ -1,3 +1,8 @@
+
+Note repo is depratated: Use this instead
+https://github.com/aagavin/py-pc-optimum
+
+==============================================================================================
 [![CodeFactor](https://www.codefactor.io/repository/github/aagavin/pc-optimum/badge)](https://www.codefactor.io/repository/github/aagavin/pc-optimum) [![CircleCI](https://circleci.com/gh/aagavin/pc-optimum/tree/master.svg?style=svg)](https://circleci.com/gh/aagavin/pc-optimum/tree/master)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/aagavin/pc-optimum.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/aagavin/pc-optimum/context:javascript)
 
